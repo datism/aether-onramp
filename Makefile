@@ -61,6 +61,9 @@ aether-add-upfs: 5gc-upf-install
 aether-remove-upfs: 5gc-upf-uninstall
 aether-ueransim-run: ueransim-run
 
+aether-add-slices: 5gc-slice-install
+aether-remove-slices: 5gc-slice-uninstall
+
 # Rules:
 #	amp-install: roc-install roc-load monitor-install monitor-load
 #	amp-uninstall: monitor-uninstall roc-uninstall

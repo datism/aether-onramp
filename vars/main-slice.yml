@@ -1,6 +1,6 @@
 k8s:
   rke2:
-    version: v1.23.4+rke2r1
+    version: v1.28.10+rke2r1
     config:
       token: purdue-k8s-rke2
       port: 9345
@@ -14,33 +14,49 @@ k8s:
 core:
   standalone: "false"
   data_iface: eth0
-  values_file: "deps/5gc/roles/core/templates/sdcore-5g-values.yaml"
+  values_file: "deps/5gc/roles/core/templates/sdcore-5g-slice-values.yaml"
   ran_subnet: "172.20.0.0/16"	# set to empty string to get subnet from 'data_iface'
   helm:
     local_charts: false
     chart_ref: aether/sd-core
     chart_version: 1.0.0
+
   upf:
     ip_prefix: "192.168.252.0/24"
     iface: "access"
+  amf:
+    ip: "172.30.155.16"
+
+  slice:
+    values_file: "deps/5gc/roles/slice/templates/slice-5g-values.yaml"
     helm:
-      local_charts: false
-      chart_ref: aether/bess-upf
-      chart_version: 1.0.2
-    values_file: "deps/5gc/roles/upf/templates/upf-5g-values.yaml"
-    additional_upfs:
+          chart_ref: aether/sd-core
+          chart_version: 1.0.0
+    slices:
       "1":
+        sNssai:
+          sst: 1
+          sd: "010203"
         ip:
-          access: "192.168.252.6/24"
-          core:   "192.168.250.6/24"
-        ue_ip_pool: "172.248.0.0/16"
+          access: "192.168.252.3/24"
+          core:   "192.168.250.3/24"
+        ue_ip_pool: "172.250.0.0/16"
       # "2":
+      #   sNssai:
+      #     sst: 2
+      #     sd: "010205"
+      #   ip:
+      #     access: "192.168.252.6/24"
+      #     core:   "192.168.250.6/24"
+      #   ue_ip_pool: "172.248.0.0/16"
+      # "3":
+      #   sNssai:
+      #     sst: 3
+      #     sd: "010207"
       #   ip:
       #     access: "192.168.252.7/24"
       #     core:   "192.168.250.7/24"
       #   ue_ip_pool: "172.247.0.0/16"
-  amf:
-    ip: "172.26.244.24"
 
 
 gnbsim:
@@ -67,7 +83,7 @@ gnbsim:
 amp:
   # roc_models: "deps/amp/roles/roc-load/templates/roc-5g-models.json"
   # for UPF - comment above line and uncomment following line
-  roc_models: "deps/amp/roles/roc-load/templates/roc-5g-models-slice2.json"
+  roc_models: "deps/amp/roles/roc-load/templates/roc-5g-models-slice.json"
   monitor_dashboard: "deps/amp/roles/monitor-load/templates/5g-monitoring"
 
   aether_roc:
