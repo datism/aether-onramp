@@ -8,11 +8,11 @@
 	branch = master
 [submodule "deps/5gc"]
 	path = deps/5gc
-	url = https://github.com/opennetworkinglab/aether-5gc.git
+	url = https://github.com/datism/aether-5gc.git
 	branch = master
 [submodule "deps/amp"]
 	path = deps/amp
-	url = https://github.com/opennetworkinglab/aether-amp.git
+	url = https://github.com/datism/aether-amp.git
 	branch = master
 [submodule "deps/4gc"]
 	path = deps/4gc
